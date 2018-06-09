@@ -2,15 +2,21 @@
 <html>
 <head>
     <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-    <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="county-codes.js"></script>
+    <script src="calendar.js"></script>
 </head>
 
 <body>
+    <form>
+        Start Date:<br>
+        <input type="date" name="startdate" id="startdate"><br>
+        Number of days:<br>
+        <input type="number" name="numberofdays" id="numberofdays" min="1"><br>
+        Country Code:<br>
+        <input type="text" class="touppercase"  name="countrycode" id="countrycode"><br>
+        <button type="button" onclick="generateCalendar()">Submit</button>
+    </form>
 </body>
 
 </html>
