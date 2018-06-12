@@ -4,22 +4,21 @@ var daysQuantity = 7;
 console.log(codes.get('CL'));
 
 function getWeekOfMonth(d) { // From Sunday
-    var firstWeekday = new Date(d.getFullYear(), d.getMonth(), 1).getDay();
-    var offsetDate = d.getDate() + firstWeekday - 1;
+    var firstWeekday = (moment().year(d.year()).month(d.month()).day(1)).day();
+    var offsetDate = d.date() + firstWeekday - 1;
     return Math.floor(offsetDate / 7);
 }
 function getWeeksInAMonth(d) {
-    var firstOfMonth = new Date(d.getFullYear(), d.getMonth() - 1, 1);
-    var lastOfMonth = new Date(d.getFullYear(), d.getMonth(), 0);
+    var firstOfMonth = new Date(d.year(), d.month() - 1, 1);
+    var lastOfMonth = new Date(d.year(), d.month(), 0);
     var used = firstOfMonth.getDay() + lastOfMonth.getDate();
     return Math.ceil(used / 7);
 }
+
+
 function monthDiff(d1, d2) {
-    var months;
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    months -= d1.getMonth() + 1;
-    months += d2.getMonth();
-    return months <= 0 ? 0 : months;
+    let months = d2.month() - d1.month();
+    return d1.year() === d2.year() ? months : months * (d2.year() - d1.year());
 }
 
 // Date.prototype.addDays = function (days) {
@@ -49,43 +48,59 @@ function generateCalendar() {
     }
 
     let [startYear, startMonth, startDay] = [...tempDate.split('-').map(td => parseInt(td))];
-    let finishYear, finishMonth, finishDay;
-    let startDate = new Date(startYear, startMonth - 1, startDay);
-    let finishDate = new Date(startYear, startMonth - 1, startDay + numberOfDays);
+    let startDate = moment().year(startYear).month(startMonth - 1).date(startDay);
+    let finishDate = moment().year(startYear).month(startMonth - 1).date(startDay + numberOfDays);
+    let [finishYear, finishMonth, finishDay] = [finishDate.year(), finishDate.month(), finishDate.date()];
+    // for (let i = startYear; i < finishYear; i++) {
+    //     yearsQuantity =
+    // };
 
-    let monthsQuantity = monthDiff(startDate, new Date(finishDate));
-    let weeksQuantity = getWeeksInAMonth(startDate);
+    let monthsQuantity = monthDiff(startDate, finishDate);
+    let weeksQuantity;
 
-    let tmpDaysQuantity = new Date(startYear, startMonth - 2, 0);
-    let daysQuantity = tmpDaysQuantity.getDate();
+    // let tmpDaysQuantity = new Date(startYear, startMonth - 2, 0);
+    let daysQuantity = parseInt((finishDate).diff(startDate, 'days', true));
 
     let months = [];
     let weeks = [];
     let days = [];
 
+    // let firstMonth = startMonth - 1;
     let firstWeek = getWeekOfMonth(startDate);
     let currentDate = moment(startDate);
     let firstDay = currentDate.weekday();
+    let daysCounter = 0;
 
-    for (var j = firstWeek; j < weeksQuantity; j++) {
-        days = Array.from(Array(firstDay), (_, x) => 'X');
-        let currentMonth = currentDate.month();
-        for (var i = days.length; i < 7; i++) {
-            let currentDay = currentDate.date();
-            if (currentDate.month() > currentMonth) {
-                days.push('X');
-            } else {
-                days.push(currentDay);
-                currentDate.add(1, 'd');
+
+
+    for (let k = 0; k <= monthsQuantity; k++) {
+        weeks = [];
+        weeksQuantity = getWeeksInAMonth(currentDate);
+        for (let j = firstWeek; j < weeksQuantity; j++) {
+            days = Array.from(Array(firstDay), (_, x) => 'X');
+            let currentMonth = currentDate.month();
+
+            for (let i = days.length; i < 7; i++) {
+                let currentDay = currentDate.date();
+                if (currentDate.month() > currentMonth || daysCounter > daysQuantity)  {
+                    days.push('X');
+                } else {
+                    days.push(currentDay);
+                    currentDate.add(1, 'd');
+                    daysCounter += 1;
+                }
+            }
+
+            weeks.push(days);
+            firstDay = currentDate.day();
+            if (daysCounter >= daysQuantity) {
+                break;
             }
         }
-        firstDay = 0;
-        weeks.push(days);
-
+        months.push(weeks);
+        console.table(months);
+        firstWeek = 0;
     }
-    firstWeek = 0;
-
-    console.table(weeks);
     console.log('start:', startDay, startMonth, startYear);
     console.log('finish:', finishDay, finishMonth, finishYear);
 
