@@ -4,6 +4,14 @@ const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 var tempHolidays;
 var numberOfDays;
 
+/**
+ * Make a  <li> element with date
+ * 
+ * @name createDay
+ * @param  {moment} date
+ * @return {li} date.
+ */
+
 function createDay(date) {
     let li = document.createElement("li");
     if (moment.isMoment(date)) {
@@ -22,6 +30,15 @@ function createDay(date) {
     }
     return li;
 }
+
+/**
+ * Make a <ul> element with a week on month.
+ *  * 
+ * @name createWeek
+ * @param  {Array[moment]} week
+ * @return {ul} <ul>.
+ */
+
 function createWeek(week) {
     let ul = document.createElement("ul");
     ul.classList.add('days');
@@ -30,6 +47,14 @@ function createWeek(week) {
     });
     return ul;
 }
+
+/**
+ * Make a <div> element with a current month.
+ *  * 
+ * @name createMonth
+ * @param  {Array} month
+ * @return {div} <div></div>.
+ */
 
 function createMonth(month) {
     //contenedor
@@ -58,8 +83,15 @@ function createMonth(month) {
     return div;
 }
 
-function generateView(months) {
+/**
+ * Make a <div> element with a all days (array of months).
+ * 
+ * @name generateView 
+ * @param  {Array} months
+ * @return {div} <div></div>.
+ */
 
+function generateView(months) {
     var calendar = document.getElementById("calendar");
     if (calendar) {
         document.body.removeChild(calendar);
@@ -75,6 +107,15 @@ function generateView(months) {
         calendar.appendChild(month);
     });
 }
+
+/**
+ * Create the array of months that have formated data to make the view.
+ *  * 
+ * @name generateLogic
+ * @param {moment} startDate initial date to start to count days
+ * @param {moment} finishDate finish date 
+ * @return {Array} Array of months
+ */
 
 function generateLogic(startDate, finishDate) {
     let week = [];
@@ -109,6 +150,11 @@ function generateLogic(startDate, finishDate) {
     return months;
 }
 
+/**
+ * Main function that generates the logic and the view.
+ *  * 
+ * @name generateCalendar 
+ */
 
 function generateCalendar() {
     let tempDate = document.getElementById("startdate").value,

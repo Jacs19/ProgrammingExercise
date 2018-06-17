@@ -250,3 +250,8 @@ class CountryCodes {
         return this.codes.find(c => c.code === code);
     } 
 }
+
+/* 
+    Country codes getting from: 
+    https://gist.github.com/keeguon/2310008
+*/
