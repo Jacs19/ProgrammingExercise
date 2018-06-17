@@ -158,7 +158,7 @@ function generateLogic(startDate, finishDate) {
 
 function generateCalendar() {
     let tempDate = document.getElementById("startdate").value,
-        countryCode = document.getElementById("countrycode").value;
+        countryCode = document.getElementById("countrycode").value.toUpperCase();
     numberOfDays = parseInt(document.getElementById("numberofdays").value);
     if (!countryCode || !tempDate || !numberOfDays) {
         alert('Data required');
