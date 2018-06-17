@@ -25,7 +25,7 @@ function createDay(date) {
             li.classList.add("weekday");
         }
     } else {
-        li.appendChild(document.createTextNode('X'));
+        li.appendChild(document.createTextNode(''));
         li.classList.add("notaday");
     }
     return li;
