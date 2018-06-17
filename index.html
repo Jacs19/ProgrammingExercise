@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="moment.min.js"></script>
     <script src="county-codes.js"></script>
+    <script src="date-holidays.js"></script>
     <script src="calendar.js"></script>
 </head>
 
@@ -19,45 +20,10 @@
         <input type="number" name="numberofdays" id="numberofdays" min="1" value="10">
         <br> Country Code:
         <br>
-        <input type="text" class="touppercase" name="countrycode" id="countrycode" value="US">
+        <input type="text" class="touppercase" name="countrycode" id="countrycode" value="CL">
         <br>
         <button type="button" onclick="generateCalendar()">Submit</button>
     </form>
-
-    <div id="calendar">
-        <div id="months">
-
-            <!-- <ul class="month">
-            <li> Mes </li>
-        </ul> -->
-            <!-- TODO: Eliminar nombre de los dias en español -->
-            <!-- <ul class="weekdays"> -->
-            <!-- <li>S</li>
-                        <li>M</li>
-                        <li>T</li>
-                        <li>W</li>
-                        <li>T</li>
-                        <li>F</li>
-                        <li>S</li> -->
-            <!-- <li>Domingo</li>
-            <li>Lunes</li>
-            <li>Martes</li>
-            <li>Miercoles</li>
-            <li>Jueves</li>
-            <li>Viernes</li>
-            <li>Sabado</li>
-        </ul>
-        <ul class="days">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-        </ul> -->
-        </div>
-    </div>
 </body>
 
 
